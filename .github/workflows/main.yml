@@ -1,0 +1,17 @@
+name: 测试企业微信通知
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 测试发送
+        env:
+          WEWORK_WEBHOOK: ${{ secrets.WEWORK_MSG_TYPE }}
+        run: |
+          if [ -z "$WEWORK_WEBHOOK" ]; then
+            echo "❌ 没读到Secret，名称写错了！"
+            exit 1
+          fi
+          echo "✅ 读到Secret了，地址是：$WEWORK_WEBHOOK"
